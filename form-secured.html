@@ -430,11 +430,54 @@
                     { value: "", label: "-- Pilih Jenis Kegiatan --" },
                     { value: "sekda", label: "Sekretariat Daerah" },
                     { value: "setdprd", label: "Sekretariat DPRD" },
-                    { value: "Inspektorat", label: "Inspektorat" },
-                    { value: "Dinas", label: "Dinas" },
-                    { value: "Badan", label: "Badan" },
-                    { value: "Kota", label: "Kota Administrasi" },
-                    { value: "Kab", label: "Kabupaten Administrasi" }
+                    { value: "inspektorat", label: "Inspektorat" },
+
+                    // Dinas
+                    { value: "dinas_pendidikan", label: "Dinas Pendidikan" },
+                    { value: "dinas_kesehatan", label: "Dinas Kesehatan" },
+                    { value: "dinas_bina_marga", label: "Dinas Bina Marga" },
+                    { value: "dinas_sda", label: "Dinas Sumber Daya Air" },
+                    { value: "dinas_cipta_karya", label: "Dinas Cipta Karya, Tata Ruang, dan Pertanahan" },
+                    { value: "dinas_perumahan", label: "Dinas Perumahan Rakyat dan Kawasan Permukiman" },
+                    { value: "satpol_pp", label: "Satuan Polisi Pamong Praja (Satpol PP)" },
+                    { value: "dinas_gulkarmat", label: "Dinas Penanggulangan Kebakaran dan Penyelamatan" },
+                    { value: "dinas_sosial", label: "Dinas Sosial" },
+                    { value: "dinas_tk_transmigrasi_energi", label: "Dinas Tenaga Kerja, Transmigrasi, dan Energi" },
+                    { value: "dinas_ppapp", label: "Dinas Pemberdayaan, Perlindungan Anak, dan Pengendalian Penduduk" },
+                    { value: "dinas_kpkp", label: "Dinas Ketahanan Pangan, Kelautan, dan Pertanian" },
+                    { value: "dinas_lh", label: "Dinas Lingkungan Hidup" },
+                    { value: "dinas_dukcapil", label: "Dinas Kependudukan dan Pencatatan Sipil" },
+                    { value: "dinas_perhubungan", label: "Dinas Perhubungan" },
+                    { value: "dinas_kominfotik", label: "Dinas Komunikasi, Informatika, dan Statistik" },
+                    { value: "dinas_dpmptsp", label: "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu" },
+                    { value: "dinas_pora", label: "Dinas Pemuda dan Olahraga" },
+                    { value: "dinas_kebudayaan", label: "Dinas Kebudayaan" },
+                    { value: "dinas_perpusip", label: "Dinas Perpustakaan dan Kearsipan" },
+                    { value: "dinas_parekraf", label: "Dinas Pariwisata dan Ekonomi Kreatif" },
+                    { value: "dinas_pertamanan", label: "Dinas Pertamanan dan Hutan Kota" },
+                    { value: "dinas_ppkukm", label: "Dinas Perindustrian, Perdagangan, Koperasi, Usaha Kecil dan Menengah" },
+
+                    // Badan
+                    { value: "bappeda", label: "Badan Perencanaan Pembangunan Daerah" },
+                    { value: "bpkd", label: "Badan Pengelolaan Keuangan Daerah" },
+                    { value: "bapenda", label: "Badan Pendapatan Daerah" },
+                    { value: "bpad", label: "Badan Pengelolaan Aset Daerah" },
+                    { value: "bp_bumd", label: "Badan Pembinaan Badan Usaha Milik Daerah" },
+                    { value: "bppbj", label: "Badan Pelayanan Pengadaan Barang/Jasa" },
+                    { value: "bkd", label: "Badan Kepegawaian Daerah" },
+                    { value: "bpsdm", label: "Badan Pengembangan Sumber Daya Manusia" },
+                    { value: "bpbd", label: "Badan Penanggulangan Bencana Daerah" },
+                    { value: "kesbangpol", label: "Badan Kesatuan Bangsa dan Politik" },
+
+                    // Kota Administrasi
+                    { value: "jakpus", label: "Kota Administrasi Jakarta Pusat" },
+                    { value: "jakut", label: "Kota Administrasi Jakarta Utara" },
+                    { value: "jakbar", label: "Kota Administrasi Jakarta Barat" },
+                    { value: "jaksel", label: "Kota Administrasi Jakarta Selatan" },
+                    { value: "jaktim", label: "Kota Administrasi Jakarta Timur" },
+
+                    // Kabupaten
+                    { value: "kep_seribu", label: "Kabupaten Administrasi Kepulauan Seribu" }
                 ]
             },
             {
@@ -445,8 +488,8 @@
                 placeholder: "Jelaskan singkat tentang kegiatan ini (opsional)"
             },
             {
-                id: "jumlahPeserta",
-                label: "Estimasi Jumlah Peserta",
+                id: "jumlahPermohonanDaya",
+                label: "Estimasi Jumlah Permohonan Daya Listrik",
                 type: "number",
                 required: false,
                 placeholder: "Contoh: 25"
