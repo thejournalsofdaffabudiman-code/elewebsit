@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seksi Energi JS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gd:#1a4731;--gm:#2d7a4f;--gl:#56c47e;--gp:#d4f0df;--gb:#f0faf4;
+      --ac:#f0a500;--td:#0f2d1e;--tm:#2e5040;--tl:#5a7a68;--wh:#ffffff;
+      --er:#c5221f;--ew:#fce8e6;--sw:#e6f4ea;--sc2:#137333;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--td);background:var(--wh);overflow-x:hidden}
+
+    /* ── NAVBAR ── */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,71,49,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;box-shadow:0 2px 16px rgba(0,0,0,0.2)}
+    .nb{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .ni{width:36px;height:36px;background:linear-gradient(135deg,var(--gl),var(--ac));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .nt{font-family:'Lora',serif;font-weight:600;font-size:1.1rem;color:var(--wh);line-height:1.2}
+    .ns{font-size:.65rem;color:var(--gp);font-weight:500;letter-spacing:.05em}
+    nav{display:flex;align-items:center;gap:.25rem}
+    .nv{position:relative}
+    .nl,.nb2{display:flex;align-items:center;gap:.3rem;padding:.5rem 1rem;color:rgba(255,255,255,.88);font-size:.88rem;font-weight:500;text-decoration:none;border-radius:6px;border:none;background:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s,color .2s;white-space:nowrap}
+    .nl:hover,.nb2:hover{background:rgba(255,255,255,.12);color:var(--wh)}
+    .nb2 svg{transition:transform .2s}
+    .nv.open .nb2 svg{transform:rotate(180deg)}
+    .dm{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--wh);border-radius:10px;box-shadow:0 8px 32px rgba(26,71,49,.18);min-width:230px;overflow:hidden;border:1px solid var(--gp)}
+    .nv.open .dm{display:block}
+    .di{display:block;padding:.7rem 1.2rem;color:var(--td);font-size:.87rem;font-weight:500;text-decoration:none;transition:background .15s}
+    .di:hover{background:var(--gb);color:var(--gm)}
+    .di+.di{border-top:1px solid var(--gp)}
+    .ntog{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none}
+    .ntog span{display:block;width:24px;height:2px;background:var(--wh);border-radius:2px}
+
+    /* ── HERO ── */
+    #hero{min-height:100vh;background:linear-gradient(145deg,var(--gd) 0%,var(--gm) 55%,#3a9e65 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 2rem 4rem;position:relative;overflow:hidden}
+    #hero::before{content:'';position:absolute;top:-120px;right:-120px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(86,196,126,.18) 0%,transparent 70%)}
+    .hbadge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:.4rem 1rem;color:var(--gp);font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem}
+    .htitle{font-family:'Lora',serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:700;color:var(--wh);line-height:1.15;margin-bottom:1.2rem;max-width:700px}
+    .htitle span{color:var(--gl)}
+    .hsub{font-size:1.1rem;color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 2.2rem;line-height:1.7}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--ac);color:var(--td);font-weight:700;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;text-decoration:none;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(240,165,0,.35)}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(240,165,0,.45)}
+    .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);color:var(--wh);font-weight:700;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;text-decoration:none;border:2px solid rgba(255,255,255,.35);cursor:pointer;transition:transform .2s,background .2s}
+    .btn-outline:hover{transform:translateY(-2px);background:rgba(255,255,255,.2)}
+
+    /* ── SECTIONS ── */
+    .sec{padding:5rem 2rem}
+    .seca{background:var(--gb)}
+    .con{max-width:1100px;margin:0 auto}
+    .sh{text-align:center;margin-bottom:3rem}
+    .sh h2{font-family:'Lora',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;color:var(--gd);margin-bottom:.6rem}
+    .sh p{color:var(--tl);font-size:1rem}
+    .sh .dv{width:56px;height:4px;background:linear-gradient(90deg,var(--gm),var(--gl));border-radius:2px;margin:.8rem auto 0}
+
+    /* ── DATA DUKUNGAN DAYA ── */
+    .cr{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1.5rem}
+    .cr label{font-size:.88rem;font-weight:600;color:var(--tm)}
+    select{padding:.55rem 2rem .55rem .9rem;border:2px solid var(--gp);border-radius:8px;background:var(--wh);appearance:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:600;color:var(--td);cursor:pointer;transition:border-color .2s}
+    select:focus{outline:none;border-color:var(--gm)}
+    .sc{background:linear-gradient(135deg,var(--gd),var(--gm));border-radius:16px;padding:1.5rem 2rem;color:var(--wh);margin-bottom:2rem}
+    .sc h3{font-family:'Lora',serif;font-size:1.15rem;font-weight:600;margin-bottom:.3rem;opacity:.9}
+    .sv{font-size:2rem;font-weight:800;color:var(--gl)}
+    .su{font-size:.85rem;opacity:.7}
+    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .sm{background:var(--wh);border:2px solid var(--gp);border-radius:12px;padding:1.1rem 1.4rem}
+    .sm .lb{font-size:.78rem;font-weight:600;color:var(--tl);text-transform:uppercase;letter-spacing:.05em}
+    .sm .vl{font-size:1.5rem;font-weight:800;color:var(--gd)}
+    .sm .un{font-size:.8rem;color:var(--tl)}
+    .cw{background:var(--wh);border:2px solid var(--gp);border-radius:16px;padding:1.5rem;box-shadow:0 4px 24px rgba(26,71,49,.13)}
+
+    /* ── FORM SECTION ── */
+    .form-wrap{max-width:760px;margin:0 auto}
+    .form-card{background:var(--wh);border:2px solid var(--gp);border-radius:16px;padding:2rem;margin-bottom:1rem;box-shadow:0 4px 24px rgba(26,71,49,.08);border-top:6px solid var(--gm)}
+    .form-card-title{font-family:'Lora',serif;font-size:1.5rem;font-weight:700;color:var(--gd);margin-bottom:.5rem}
+    .form-card-desc{font-size:.9rem;color:var(--tl);line-height:1.6;margin-bottom:0}
+    .fq-card{background:var(--wh);border:2px solid var(--gp);border-radius:12px;padding:1.4rem 1.6rem;margin-bottom:.75rem;border-left:4px solid transparent;transition:border-left-color .2s,box-shadow .2s}
+    .fq-card:hover{border-left-color:var(--gm);box-shadow:0 2px 12px rgba(26,71,49,.08)}
+    .fq-card.focused{border-left-color:var(--gm);box-shadow:0 2px 12px rgba(26,71,49,.1)}
+    .fq-label{font-size:.92rem;font-weight:600;color:var(--tm);margin-bottom:.6rem;display:block}
+    .req-mark{color:var(--er);margin-left:3px}
+    .finput{width:100%;border:none;border-bottom:2px solid var(--gp);padding:.5rem 0;font-size:.95rem;color:var(--td);background:transparent;transition:border-color .2s;font-family:'Plus Jakarta Sans',sans-serif}
+    .finput:focus{outline:none;border-bottom-color:var(--gm)}
+    .finput::placeholder{color:var(--tl);opacity:.7}
+    textarea.finput{border:2px solid var(--gp);border-radius:8px;padding:.7rem .9rem;resize:vertical;min-height:80px}
+    textarea.finput:focus{border-color:var(--gm)}
+    select.finput{border:2px solid var(--gp);border-radius:8px;padding:.7rem .9rem;background:var(--wh);cursor:pointer;appearance:none}
+    select.finput:focus{border-color:var(--gm)}
+    input[type="date"].finput{border:2px solid var(--gp);border-radius:8px;padding:.7rem .9rem}
+    input[type="date"].finput:focus{border-color:var(--gm)}
+    .date-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.75rem}
+    .date-grp{display:flex;flex-direction:column}
+    .date-lbl{font-size:.78rem;font-weight:600;color:var(--tl);margin-bottom:.4rem}
+    .falert{padding:.7rem 1rem;border-radius:8px;margin-top:.75rem;font-size:.85rem;display:none}
+    .falert-err{background:var(--ew);color:var(--er);border:1px solid #f5c6cb}
+    .falert-warn{background:#fef7e0;color:#ea8600;border:1px solid #ffeaa7}
+    .falert-ok{background:var(--sw);color:var(--sc2);border:1px solid #c6e1c6}
+    .falert-info{background:#e8f0fe;color:#1967d2;border:1px solid #aecbfa}
+    .fsubmit-row{background:var(--wh);border:2px solid var(--gp);border-radius:12px;padding:1.4rem 1.6rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .fbtn-clear{background:transparent;color:var(--gm);border:2px solid var(--gp);padding:.65rem 1.5rem;font-size:.88rem;font-weight:600;border-radius:8px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s,border-color .2s}
+    .fbtn-clear:hover{background:var(--gb);border-color:var(--gm)}
+    .fbtn-submit{background:var(--gm);color:var(--wh);border:none;padding:.75rem 2rem;font-size:.9rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s,transform .2s;box-shadow:0 4px 14px rgba(45,122,79,.3)}
+    .fbtn-submit:hover:not(:disabled){background:var(--gd);transform:translateY(-1px)}
+    .fbtn-submit:disabled{background:var(--gp);color:var(--tl);cursor:not-allowed;box-shadow:none}
+    .fload{display:none;text-align:center;padding:1.5rem}
+    .fspinner{border:3px solid var(--gp);border-top:3px solid var(--gm);border-radius:50%;width:36px;height:36px;animation:spin 1s linear infinite;margin:0 auto .7rem}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .honeypot{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+    .fsuccess{background:var(--sw);color:var(--sc2);border:2px solid #c6e1c6;border-radius:10px;padding:1rem 1.4rem;margin-bottom:.75rem;font-weight:600;display:none}
+    .fsecnote{text-align:center;font-size:.78rem;color:var(--tl);margin-top:1rem}
+
+    /* ── KALKULATOR GENSET ── */
+    .calc-layout{display:grid;grid-template-columns:1fr 280px;gap:2rem;align-items:start}
+    .calc-main{}
+    .calc-side{position:sticky;top:80px}
+    .rec-panel{background:var(--wh);border:2px solid var(--gp);border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(26,71,49,.1)}
+    .rec-head{background:linear-gradient(135deg,var(--gd),var(--gm));padding:.9rem 1.2rem;display:flex;align-items:center;gap:.6rem}
+    .rec-dot{width:8px;height:8px;border-radius:50%;background:var(--gl);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .rec-head span{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+    .rec-body{padding:1rem 1.2rem}
+    .rec-total-row{font-size:.8rem;font-weight:600;color:var(--tl);margin-bottom:.75rem;display:flex;justify-content:space-between}
+    .rec-total-row span{color:var(--gm);font-weight:800}
+    .genset-list{display:flex;flex-direction:column;gap:.5rem}
+    .genset-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem .8rem;border-radius:8px;border:2px solid var(--gp);background:var(--gb);transition:all .3s;font-size:.82rem}
+    .genset-item.recommended{border-color:var(--ac);background:rgba(240,165,0,.08);box-shadow:0 0 10px rgba(240,165,0,.15)}
+    .genset-item.overload{border-color:#f5c6cb;background:#fef7f7;opacity:.6}
+    .genset-name{font-weight:700;color:var(--gd)}
+    .genset-count{font-size:.72rem;color:var(--tl)}
+    .genset-badge{font-size:.7rem;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.04em}
+    .badge-ok{background:var(--sw);color:var(--sc2)}
+    .badge-rec{background:rgba(240,165,0,.2);color:#b37800}
+    .badge-over{background:var(--ew);color:var(--er)}
+    .badge-light{background:var(--gp);color:var(--tl)}
+    .summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gp);border:2px solid var(--gp);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+    .sum-item{background:var(--wh);padding:1rem}
+    .sum-item .s-lbl{font-size:.7rem;font-weight:600;color:var(--tl);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem}
+    .sum-item .s-val{font-size:1.2rem;font-weight:800;color:var(--gd);transition:all .3s}
+    .sum-item.hi .s-val{color:var(--gm)}
+    .sum-unit{font-size:.72rem;color:var(--tl);font-weight:500}
+    .pf-note-bar{background:var(--wh);border:2px solid var(--gp);border-left:4px solid var(--gm);border-radius:0 10px 10px 0;padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.82rem;color:var(--tl);line-height:1.6}
+    .pf-note-bar strong{color:var(--td)}
+    .calc-section{margin-bottom:1.5rem}
+    .calc-sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+    .calc-sec-title{font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tm);display:flex;align-items:center;gap:.5rem}
+    .type-badge{font-size:.7rem;padding:2px 8px;border-radius:4px;font-weight:600;letter-spacing:.04em;border:1px solid}
+    .badge-R{background:rgba(45,122,79,.1);color:var(--gm);border-color:rgba(45,122,79,.3)}
+    .badge-L{background:rgba(240,165,0,.1);color:#b37800;border-color:rgba(240,165,0,.3)}
+    .badge-C{background:rgba(30,100,200,.08);color:#1a56b0;border-color:rgba(30,100,200,.2)}
+    .btn-add-row{background:transparent;border:2px solid var(--gp);color:var(--tl);padding:.4rem .9rem;border-radius:6px;font-size:.8rem;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:all .2s;font-weight:600}
+    .btn-add-row:hover{border-color:var(--gm);color:var(--gm);background:var(--gb)}
+    .eq-table{width:100%;border-collapse:collapse;border:2px solid var(--gp);border-radius:12px;overflow:hidden;background:var(--wh)}
+    .eq-table th{background:var(--gb);padding:.65rem 1rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tl);text-align:left;border-bottom:2px solid var(--gp)}
+    .eq-table td{padding:.6rem .9rem;border-bottom:1px solid var(--gp);vertical-align:middle}
+    .eq-table tr:last-child td{border-bottom:none}
+    .eq-table tr:hover td{background:var(--gb)}
+    .eq-table input[type="text"],.eq-table input[type="number"]{background:var(--gb);border:1px solid var(--gp);color:var(--td);padding:.4rem .6rem;border-radius:6px;font-size:.85rem;font-family:'Plus Jakarta Sans',sans-serif;width:100%;outline:none;transition:border-color .2s}
+    .eq-table input:focus{border-color:var(--gm)}
+    .watt-display{font-size:.88rem;font-weight:700;color:var(--gm);text-align:right;min-width:70px}
+    .btn-del-row{background:transparent;border:none;color:var(--tl);cursor:pointer;padding:3px 7px;border-radius:4px;font-size:1.1rem;transition:all .2s}
+    .btn-del-row:hover{color:var(--er);background:#fef7f7}
+    .empty-row td{text-align:center;color:var(--tl);font-size:.82rem;font-style:italic;padding:1.2rem}
+    .calc-footer-note{margin-top:1.5rem;padding:1rem 1.2rem;background:var(--gb);border:2px solid var(--gp);border-radius:10px;font-size:.82rem;color:var(--tl);line-height:1.7}
+    .calc-footer-note a{color:var(--gm);text-decoration:none;font-weight:600}
+    .calc-footer-note a:hover{text-decoration:underline}
+
+    /* ── DASAR HUKUM ── */
+    .dh-wrap{max-width:820px;margin:0 auto}
+    .dh-ref{background:var(--wh);border:2px solid var(--gp);border-radius:14px;padding:1.6rem 2rem;margin-bottom:1.2rem;box-shadow:0 2px 12px rgba(26,71,49,.07)}
+    .dh-ref-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+    .dh-badge{flex-shrink:0;background:linear-gradient(135deg,var(--gd),var(--gm));color:var(--wh);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.35rem .8rem;border-radius:6px;white-space:nowrap}
+    .dh-ref-title{font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--gd);line-height:1.5}
+    .dh-ref-sub{font-size:.82rem;color:var(--tl);margin-top:.25rem}
+    .dh-divider{border:none;border-top:2px solid var(--gp);margin:.2rem 0 1rem}
+    .dh-tugas-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tl);margin-bottom:.75rem}
+    .dh-list{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+    .dh-list li{display:flex;gap:.85rem;align-items:flex-start;font-size:.9rem;color:var(--tm);line-height:1.65}
+    .dh-num{flex-shrink:0;width:26px;height:26px;background:var(--gb);border:2px solid var(--gp);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--gm);margin-top:.05rem}
+
+    /* ── STRUKTUR ORGANISASI ── */
+    .so-wrap{max-width:860px;margin:0 auto}
+    .so-card{background:var(--wh);border:2px solid var(--gp);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(26,71,49,.1)}
+    .so-card-head{background:linear-gradient(135deg,var(--gd),var(--gm));padding:1.2rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .so-card-head h3{font-family:'Lora',serif;font-size:1.05rem;font-weight:600;color:var(--wh)}
+    .so-card-head p{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:.15rem}
+    .so-open-btn{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:var(--wh);font-size:.8rem;font-weight:600;padding:.5rem 1rem;border-radius:8px;text-decoration:none;transition:background .2s;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
+    .so-open-btn:hover{background:rgba(255,255,255,.25)}
+    .so-img-wrap{padding:1.5rem;background:var(--gb);text-align:center}
+    .so-img-wrap img{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--gp);box-shadow:0 2px 12px rgba(26,71,49,.1);cursor:zoom-in;transition:transform .2s}
+    .so-img-wrap img:hover{transform:scale(1.01)}
+    .so-caption{font-size:.78rem;color:var(--tl);margin-top:.9rem;font-style:italic}
+    /* Lightbox */
+    #so-lightbox{display:none;position:fixed;inset:0;background:rgba(10,26,18,.9);z-index:2000;align-items:center;justify-content:center;padding:1rem;cursor:zoom-out}
+    #so-lightbox.open{display:flex}
+    #so-lightbox img{max-width:95vw;max-height:92vh;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,.5);object-fit:contain}
+    #so-lightbox-close{position:fixed;top:1.2rem;right:1.5rem;background:rgba(255,255,255,.15);border:none;color:var(--wh);font-size:1.8rem;cursor:pointer;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    #so-lightbox-close:hover{background:rgba(255,255,255,.3)}
+    .so-highlight{background:var(--wh);border:2px solid var(--gp);border-left:4px solid var(--gl);border-radius:0 10px 10px 0;padding:.8rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--tl);line-height:1.6}
+    .so-highlight strong{color:var(--gm)}
+
+    /* ── FAQ ── */
+    .faq-item{border:2px solid var(--gp);border-radius:12px;overflow:hidden;margin-bottom:.75rem}
+    .faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;background:var(--wh);border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:600;color:var(--gd);text-align:left;gap:1rem;transition:background .2s}
+    .faq-q:hover{background:var(--gb)}
+    .faq-a{display:none;padding:.1rem 1.2rem 1rem;font-size:.9rem;color:var(--tl);line-height:1.7;background:var(--gb)}
+
+    /* ── KONTAK ── */
+    /* reuse .sm and .sg */
+
+    /* ── FOOTER ── */
+    footer{background:var(--gd);color:rgba(255,255,255,.75);padding:3rem 2rem 1.5rem}
+    .fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+    .fbr{font-family:'Lora',serif;font-size:1.2rem;color:var(--wh);font-weight:600;margin-bottom:.6rem}
+    .fds{font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.6)}
+    .fc h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gl);margin-bottom:.8rem}
+    .fc p,.fc a{display:block;font-size:.87rem;color:rgba(255,255,255,.65);text-decoration:none;line-height:1.9}
+    .fc a:hover{color:var(--wh)}
+    .fb{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.1);padding-top:1.2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+    .fb p{font-size:.8rem;color:rgba(255,255,255,.45)}
+
+    /* ── ANIMATION ── */
+    .fade{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+    .fade.vis{opacity:1;transform:none}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1000px){.calc-layout{grid-template-columns:1fr}.calc-side{position:static}.summary-bar{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}
+    @media(max-width:700px){
+      #navbar{padding:0 1.2rem}
+      nav{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--gd);padding:1rem}
+      nav.open{display:flex}
+      .ntog{display:flex}
+      .dm{position:static;box-shadow:none;border:none;background:rgba(255,255,255,.07)}
+      .di{color:rgba(255,255,255,.8)}
+      .di:hover{background:rgba(255,255,255,.1);color:var(--wh)}
+      .fg{grid-template-columns:1fr}
+      .date-row{grid-template-columns:1fr}
+      .fsubmit-row{flex-direction:column}
+      .fbtn-clear,.fbtn-submit{width:100%;text-align:center;justify-content:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<header id="navbar">
+  <a href="#hero" class="nb">
+    <div class="ni">⚡</div>
+    <div><div class="nt">Seksi Energi JS</div><div class="ns">Jakarta Selatan</div></div>
+  </a>
+  <button class="ntog" id="ntog"><span></span><span></span><span></span></button>
+  <nav id="mnav">
+    <a class="nl" href="#isi-form">📋 Isi Form</a>
+    <a class="nl" href="#kalkulator">🔌 Kalkulator</a>
+    <div class="nv" id="ddI">
+      <button class="nb2" onclick="tdd('ddI')">Informasi <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="dm">
+        <a class="di" href="#dasar-hukum">📜 Dasar Hukum</a>
+        <a class="di" href="#struktur-organisasi">🏛 Struktur Organisasi</a>
+      </div>
+    </div>
+    <a class="nl" href="#faq">FAQ</a>
+    <a class="nl" href="#kontak">Hubungi Kami</a>
+  </nav>
+</header>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div style="position:relative;z-index:1;max-width:680px">
+    <div class="hbadge">⚡ Suku Dinas Tenaga Kerja, Transmigrasi dan Energi Kota Administrasi Jakarta Selatan</div>
+    <h1 class="htitle">Seksi Energi <span>Jaksel</span></h1>
+    <p class="hsub">Mendukung ketersediaan dan keandalan pasokan daya listrik untuk masyarakat Jakarta Selatan melalui layanan dukungan daya listrik dan genset.</p>
+    <div class="hero-btns">
+      <a href="#isi-form" class="btn">📋 Isi Form</a>
+      <a href="#kalkulator" class="btn-outline">🔌 Kalkulator Genset</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ISI FORM ══════════════ -->
+<section class="sec seca" id="isi-form">
+  <div class="con">
+    <div class="sh fade">
+      <h2>Isi Form</h2>
+      <p>Daftarkan kegiatan Anda untuk permohonan dukungan daya listrik</p>
+      <div class="dv"></div>
+    </div>
+    <div class="form-wrap fade">
+      <!-- Header Card -->
+      <div class="form-card">
+        <h3 class="form-card-title" id="formTitle">Form Pendaftaran Kegiatan</h3>
+        <p class="form-card-desc" id="formDescription">Silakan isi formulir di bawah ini untuk mendaftarkan kegiatan Anda. Maksimal 2 kegiatan per hari.</p>
+      </div>
+
+      <!-- Form -->
+      <form id="activityForm">
+        <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+        <div id="formQuestions"></div>
+
+        <!-- Date Range -->
+        <div class="fq-card">
+          <label class="fq-label">Pilih Rentang Tanggal Kegiatan <span class="req-mark">*</span></label>
+          <div class="date-row">
+            <div class="date-grp">
+              <span class="date-lbl">Tanggal Mulai</span>
+              <input type="date" class="finput" id="startDate" required>
+            </div>
+            <div class="date-grp">
+              <span class="date-lbl">Tanggal Selesai</span>
+              <input type="date" class="finput" id="endDate" required>
+            </div>
+          </div>
+          <div id="dateAlert" class="falert"></div>
+          <div id="availabilityAlert" class="falert"></div>
+        </div>
+
+        <!-- Submit -->
+        <div class="fsubmit-row">
+          <button type="button" class="fbtn-clear" onclick="clearForm()">🗑 Hapus Form</button>
+          <button type="submit" class="fbtn-submit" id="submitBtn">Kirim Permohonan →</button>
+        </div>
+
+        <div id="successMessage" class="fsuccess">✓ Data berhasil dikirim! Terima kasih.</div>
+      </form>
+
+      <div class="fload" id="loadingIndicator">
+        <div class="fspinner"></div>
+        <p style="font-size:.88rem;color:var(--tl)">Mengirim data...</p>
+      </div>
+      <p class="fsecnote">🔒 Form ini diamankan dengan enkripsi end-to-end</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DATA DUKUNGAN DAYA ══════════════ -->
+<section class="sec" id="dukungan-daya">
+  <div class="con">
+    <div class="sh fade">
+      <h2>Data Dukungan Daya Listrik</h2>
+      <p>Rekapitulasi kegiatan dukungan daya listrik per tahun</p>
+      <div class="dv"></div>
+    </div>
+    <div class="fade">
+      <div class="cr">
+        <label for="thnD">Pilih Tahun:</label>
+        <select id="thnD" onchange="updD()">
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+        </select>
+      </div>
+      <div class="sc">
+        <h3 id="dST">Selama tahun 2024 telah dilaksanakan kegiatan dengan total</h3>
+        <div class="sv" id="dSV">–</div>
+        <div class="su">kegiatan dukungan daya listrik</div>
+      </div>
+      <div class="sg" id="dSG"></div>
+      <div class="cw"><canvas id="dChart" height="90"></canvas></div>
+      <p style="font-size:.78rem;color:var(--tl);margin-top:.8rem;text-align:center">⚙️ Ganti <code style="background:var(--gp);padding:.1rem .4rem;border-radius:4px">SHEET_ID_DAYA</code> di CONFIG script dengan ID Google Sheets Anda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ KALKULATOR GENSET ══════════════ -->
+<section class="sec seca" id="kalkulator">
+  <div class="con">
+    <div class="sh fade">
+      <h2>Kalkulator Kebutuhan Daya</h2>
+      <p>Hitung estimasi kebutuhan daya listrik untuk kegiatan Anda</p>
+      <div class="dv"></div>
+    </div>
+    <div class="fade">
+      <div class="calc-layout">
+        <!-- Main Calculator -->
+        <div class="calc-main">
+          <div class="pf-note-bar">
+            <strong>Catatan perhitungan:</strong> Beban <strong>Resistif</strong> (PF=1.0): lampu pijar, pemanas, setrika. Beban <strong>Induktif</strong> (PF=0.8): motor AC, pompa, AC, kulkas. Beban <strong>Kapasitif</strong> (PF=0.9): komputer, layar LED, peralatan elektronik. Total kVA = total VA / 1000, dengan safety factor <strong>1.25×</strong>.
+          </div>
+
+          <!-- Summary Bar -->
+          <div class="summary-bar">
+            <div class="sum-item"><div class="s-lbl">Beban Resistif (R)</div><div class="s-val" id="sum-r">0<span class="sum-unit"> W</span></div></div>
+            <div class="sum-item"><div class="s-lbl">Beban Induktif (L)</div><div class="s-val" id="sum-l">0<span class="sum-unit"> W</span></div></div>
+            <div class="sum-item"><div class="s-lbl">Beban Kapasitif (C)</div><div class="s-val" id="sum-c">0<span class="sum-unit"> W</span></div></div>
+            <div class="sum-item hi"><div class="s-lbl">Total kVA</div><div class="s-val" id="sum-kva">0.00<span class="sum-unit"> kVA</span></div></div>
+          </div>
+
+          <!-- Resistif -->
+          <div class="calc-section">
+            <div class="calc-sec-head">
+              <div class="calc-sec-title">Beban Resistif <span class="type-badge badge-R">R · PF = 1.0</span></div>
+              <button class="btn-add-row" onclick="addRow('R')">+ Tambah</button>
+            </div>
+            <table class="eq-table" id="table-R">
+              <thead><tr><th style="width:35%">Nama Peralatan</th><th style="width:18%">Daya (W)</th><th style="width:12%">Jumlah</th><th style="width:20%">Total (W)</th><th style="width:8%"></th></tr></thead>
+              <tbody id="body-R"><tr class="empty-row"><td colspan="5">Belum ada peralatan. Klik "+ Tambah"</td></tr></tbody>
+            </table>
+          </div>
+
+          <!-- Induktif -->
+          <div class="calc-section">
+            <div class="calc-sec-head">
+              <div class="calc-sec-title">Beban Induktif <span class="type-badge badge-L">L · PF = 0.8</span></div>
+              <button class="btn-add-row" onclick="addRow('L')">+ Tambah</button>
+            </div>
+            <table class="eq-table" id="table-L">
+              <thead><tr><th style="width:35%">Nama Peralatan</th><th style="width:18%">Daya (W)</th><th style="width:12%">Jumlah</th><th style="width:20%">Total (W)</th><th style="width:8%"></th></tr></thead>
+              <tbody id="body-L"><tr class="empty-row"><td colspan="5">Belum ada peralatan. Klik "+ Tambah"</td></tr></tbody>
+            </table>
+          </div>
+
+          <!-- Kapasitif -->
+          <div class="calc-section">
+            <div class="calc-sec-head">
+              <div class="calc-sec-title">Beban Kapasitif <span class="type-badge badge-C">C · PF = 0.9</span></div>
+              <button class="btn-add-row" onclick="addRow('C')">+ Tambah</button>
+            </div>
+            <table class="eq-table" id="table-C">
+              <thead><tr><th style="width:35%">Nama Peralatan</th><th style="width:18%">Daya (W)</th><th style="width:12%">Jumlah</th><th style="width:20%">Total (W)</th><th style="width:8%"></th></tr></thead>
+              <tbody id="body-C"><tr class="empty-row"><td colspan="5">Belum ada peralatan. Klik "+ Tambah"</td></tr></tbody>
+            </table>
+          </div>
+
+          <div class="calc-footer-note">
+            Setelah mengetahui estimasi kebutuhan daya, catat hasil kVA dan genset yang direkomendasikan, lalu kembali ke <a href="#isi-form">Formulir Permohonan Dukungan Daya Listrik</a> untuk melanjutkan pengajuan. Hasil kalkulator ini bersifat estimasi — staf Seksi Energi akan melakukan verifikasi akhir.
+          </div>
+        </div>
+
+        <!-- Side Panel Rekomendasi -->
+        <div class="calc-side">
+          <div class="rec-panel">
+            <div class="rec-head">
+              <div class="rec-dot"></div>
+              <span>Rekomendasi Genset</span>
+            </div>
+            <div class="rec-body">
+              <div class="rec-total-row">
+                <span>Total kebutuhan:</span>
+                <span id="rec-kva">0.00 kVA</span>
+              </div>
+              <div class="genset-list" id="genset-list"><!-- populated by JS --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DASAR HUKUM ══════════════ -->
+<section class="sec" id="dasar-hukum">
+  <div class="con">
+    <div class="sh fade">
+      <h2>Dasar Hukum</h2>
+      <p>Landasan peraturan tugas dan fungsi Seksi Energi</p>
+      <div class="dv"></div>
+    </div>
+    <div class="dh-wrap fade">
+      <div class="dh-ref">
+        <div class="dh-ref-top">
+          <span class="dh-badge">Pergub DKI Jakarta</span>
+          <div>
+            <div class="dh-ref-title">Peraturan Gubernur DKI Jakarta Nomor 57 Tahun 2022</div>
+            <div class="dh-ref-sub">tentang Organisasi dan Tata Kerja Perangkat Daerah — Lampiran 13</div>
+          </div>
+        </div>
+        <hr class="dh-divider">
+        <div class="dh-tugas-title">Tugas dan Fungsi Seksi Energi — Suku Dinas Tenaga Kerja, Transmigrasi, dan Energi Kota Administrasi</div>
+        <ol class="dh-list">
+          <li>
+            <div class="dh-num">1</div>
+            <span>Melaksanakan pembinaan, pembangunan, pengembangan, penyediaan, dan evaluasi bidang energi dan sumber daya mineral pada subbidang ketenagalistrikan, energi baru terbarukan, mineral dan batu bara pada tingkat Kota Administrasi.</span>
+          </li>
+          <li>
+            <div class="dh-num">2</div>
+            <span>Melaksanakan dukungan pelayanan daya listrik pada kegiatan pemerintah Kota Administrasi.</span>
+          </li>
+          <li>
+            <div class="dh-num">3</div>
+            <span>Menyusun data dan informasi pada Seksi Energi.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ STRUKTUR ORGANISASI ══════════════ -->
+<section class="sec seca" id="struktur-organisasi">
+  <div class="con">
+    <div class="sh fade">
+      <h2>Struktur Organisasi</h2>
+      <p>Susunan organisasi Dinas Tenaga Kerja, Transmigrasi, dan Energi Provinsi DKI Jakarta</p>
+      <div class="dv"></div>
+    </div>
+    <div class="so-wrap fade">
+      <div class="so-card">
+        <div class="so-card-head">
+          <div>
+            <h3>Bagan Struktur Organisasi</h3>
+            <p>Disnakertransgi Provinsi DKI Jakarta</p>
+          </div>
+          <a href="struktur.jpg" target="_blank" class="so-open-btn">
+            🔗 Buka di Tab Baru
+          </a>
+        </div>
+        <div class="so-img-wrap">
+          <img
+            src="struktur.jpg"
+            alt="Struktur Organisasi Disnakertransgi DKI Jakarta"
+            onclick="openLightbox(this.src)"
+            title="Klik untuk memperbesar"
+          >
+          <p class="so-caption">Klik gambar untuk memperbesar · File: struktur.jpg (folder yang sama dengan index.html)</p>
+        </div>
+      </div>
+      <div class="so-highlight">
+        Seksi Energi berada di bawah <strong>Suku Dinas Kota Administrasi</strong>, sejajar dengan Seksi Pelatihan, Seksi Hubungan Industrial, dan Seksi Pengawasan — dipimpin langsung oleh Kepala Seksi Energi.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="so-lightbox" onclick="closeLightbox()">
+  <button id="so-lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="so-lightbox-img" src="" alt="Struktur Organisasi">
+</div>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="sec" id="faq">
+  <div class="con" style="max-width:720px">
+    <div class="sh fade"><h2>FAQ</h2><p>Pertanyaan yang sering diajukan</p><div class="dv"></div></div>
+    <div id="faqList" class="fade"></div>
+  </div>
+</section>
+
+<!-- ══════════════ HUBUNGI KAMI ══════════════ -->
+<section class="sec seca" id="kontak">
+  <div class="con" style="max-width:700px;text-align:center">
+    <div class="sh fade"><h2>Hubungi Kami</h2><p>Tim kami siap membantu Anda</p><div class="dv"></div></div>
+    <div class="fade" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem;margin-top:1rem">
+      <div class="sm" style="text-align:left"><div class="lb">📞 Telepon</div><div style="font-size:1rem;font-weight:700;color:var(--gd);margin-top:.3rem">— isi disini —</div></div>
+      <div class="sm" style="text-align:left"><div class="lb">✉️ Email</div><div style="font-size:1rem;font-weight:700;color:var(--gd);margin-top:.3rem">— isi disini —</div></div>
+      <div class="sm" style="text-align:left"><div class="lb">🕐 Jam Kerja</div><div style="font-size:.9rem;font-weight:600;color:var(--gd);margin-top:.3rem">Senin–Jumat<br>08.00–16.00 WIB</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="fg">
+    <div>
+      <div class="fbr">⚡ Seksi Energi JS</div>
+      <p class="fds">Seksi Energi — Suku Dinas Tenaga Kerja, Transmigrasi, dan Energi Kota Administrasi Jakarta Selatan.</p>
+    </div>
+    <div class="fc"><h4>Alamat</h4><p>Jl. Prapanca Raya No.9,<br>Kebayoran Baru,<br>Jakarta Selatan 12160</p></div>
+    <div class="fc"><h4>Kontak</h4><a href="#">— Telepon —</a><a href="#">— Email —</a><a href="#">— WhatsApp —</a></div>
+  </div>
+  <div class="fb">
+    <p>© 2025 Seksi Energi Jakarta Selatan. Hak Cipta Dilindungi.</p>
+    <p>Pemerintah Provinsi DKI Jakarta</p>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+// KONFIGURASI UTAMA — UBAH DI SINI
+// ══════════════════════════════════════════
+
+const CFG = {
+  SHEET_ID_DAYA: 'YOUR_SHEET_ID_DAYA',  // Ganti dengan ID Google Sheets data daya
+};
+
+// ──────────────────────────────────────────
+// KONFIGURASI FORM — UBAH DI SINI
+// ──────────────────────────────────────────
+const FORM_CONFIG = {
+  title: "Form Pendaftaran Kegiatan",
+  description: "Silakan isi formulir di bawah ini untuk mendaftarkan kegiatan Anda. Maksimal 2 kegiatan per hari.",
+  maxActivitiesPerDay: 2,
+  maxDateRange: 7,
+  minDateRange: 1
+};
+
+const FORM_QUESTIONS = [
+  { id: "nama",         label: "Nama Lengkap",              type: "text",     required: true,  placeholder: "Masukkan nama lengkap Anda" },
+  { id: "email",        label: "Email",                      type: "email",    required: true,  placeholder: "contoh@email.com" },
+  { id: "judulKegiatan",label: "Judul Kegiatan",             type: "text",     required: true,  placeholder: "Masukkan judul kegiatan" },
+  {
+    id: "PD", label: "Perangkat Daerah", type: "select", required: true,
+    options: [
+      { value: "",            label: "-- Pilih Jenis Kegiatan --" },
+      { value: "sekda",       label: "Sekretariat Daerah" },
+      { value: "setdprd",     label: "Sekretariat DPRD" },
+      { value: "Inspektorat", label: "Inspektorat" },
+      { value: "Dinas",       label: "Dinas" },
+      { value: "Badan",       label: "Badan" },
+      { value: "Kota",        label: "Kota Administrasi" },
+      { value: "Kab",         label: "Kabupaten Administrasi" }
+    ]
+  },
+  { id: "deskripsi",     label: "Deskripsi Kegiatan",         type: "textarea", required: false, placeholder: "Jelaskan singkat tentang kegiatan ini (opsional)" },
+  { id: "jumlahPeserta", label: "Estimasi Jumlah Peserta",    type: "number",   required: false, placeholder: "Contoh: 25" }
+];
+
+// Apps Script URL — GANTI DENGAN URL ANDA
+const elgoskrip = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+
+// ──────────────────────────────────────────
+// KONFIGURASI FAQ — TAMBAH/UBAH DI SINI
+// ──────────────────────────────────────────
+// Format: { q: "Pertanyaan", a: "Jawaban" }
+const FAQ = [
+
+  // --- UMUM ---
+  {
+    q: "Apa itu Seksi Energi Suku Dinas Nakertransgi Kota Administrasi?",
+    a: "Seksi Energi adalah unit kerja di bawah Suku Dinas Tenaga Kerja, Transmigrasi, dan Energi Kota Administrasi yang bertugas melaksanakan pembinaan, pembangunan, pengembangan, penyediaan, dan evaluasi bidang energi dan sumber daya mineral pada tingkat Kota Administrasi, termasuk dukungan pelayanan daya listrik untuk kegiatan pemerintah."
+  },
+  {
+    q: "Apa dasar hukum tugas dan fungsi Seksi Energi?",
+    a: "Tugas dan fungsi Seksi Energi diatur dalam Peraturan Gubernur DKI Jakarta Nomor 57 Tahun 2022 tentang Organisasi dan Tata Kerja Perangkat Daerah, Lampiran 13. Pergub ini menjadi landasan resmi seluruh kegiatan operasional Seksi Energi."
+  },
+  {
+    q: "Di mana posisi Seksi Energi dalam struktur organisasi?",
+    a: "Seksi Energi berada di bawah Suku Dinas Kota Administrasi, sejajar dengan Seksi Pelatihan, Penempatan, Produktivitas dan Transmigrasi; Seksi Hubungan Industrial dan Kesejahteraan Pekerja; serta Seksi Pengawasan. Struktur lengkap dapat dilihat pada section Struktur Organisasi di halaman ini."
+  },
+
+  // --- LAYANAN ---
+  {
+    q: "Apa itu Layanan Dukungan Daya Listrik?",
+    a: "Layanan dukungan daya listrik adalah penyediaan genset oleh Seksi Energi untuk mendukung kegiatan pemerintah Kota Administrasi yang memerlukan pasokan daya listrik tambahan. Layanan ini merupakan salah satu tugas resmi Seksi Energi berdasarkan Pergub DKI Jakarta No. 57 Tahun 2022."
+  },
+  {
+    q: "Bagaimana cara mengajukan permohonan dukungan daya listrik?",
+    a: "Permohonan dapat diajukan melalui formulir online pada halaman ini (section Isi Form). Lengkapi semua data yang diperlukan: nama, email, judul kegiatan, perangkat daerah, deskripsi, estimasi peserta, dan rentang tanggal. Setelah terkirim, staf Seksi Energi akan memverifikasi dan menghubungi Anda."
+  },
+  {
+    q: "Berapa maksimal kegiatan yang bisa didaftarkan per hari?",
+    a: "Maksimal 2 kegiatan per hari dapat didaftarkan melalui sistem ini. Jika slot sudah penuh namun kegiatan Anda bersifat mendesak, silakan hubungi langsung Kepala Seksi Energi melalui kontak yang tersedia di halaman ini."
+  },
+
+  // --- KALKULATOR ---
+  {
+    q: "Untuk apa Kalkulator Kebutuhan Daya digunakan?",
+    a: "Kalkulator ini membantu Anda mengestimasi total kebutuhan daya listrik (dalam kVA) berdasarkan peralatan yang akan digunakan dalam kegiatan. Hasil perhitungan menjadi acuan pemilihan genset yang sesuai sebelum mengajukan permohonan resmi melalui form."
+  },
+  {
+    q: "Apa perbedaan beban Resistif, Induktif, dan Kapasitif pada kalkulator?",
+    a: "Beban Resistif (PF=1.0) mencakup peralatan seperti lampu pijar, pemanas, dan setrika. Beban Induktif (PF=0.8) meliputi motor AC, pompa, AC, dan kulkas. Beban Kapasitif (PF=0.9) terdiri dari komputer, layar LED, dan peralatan elektronik. Perbedaan faktor daya (PF) ini mempengaruhi perhitungan total kVA yang dibutuhkan."
+  },
+  {
+    q: "Apakah hasil kalkulator sudah pasti sesuai dengan genset yang diberikan?",
+    a: "Hasil kalkulator bersifat estimasi dengan safety factor 1.25×. Staf Seksi Energi akan melakukan verifikasi akhir dan menyesuaikan dengan ketersediaan genset serta kondisi lapangan sebenarnya."
+  }
+];
+
+// ──────────────────────────────────────────
+// KONFIGURASI GENSET — UBAH SESUAI ARMADA
+// ──────────────────────────────────────────
+const GENSETS = [
+  { id: 'g10a',  label: '10 kVA (1)',    kva: 10,   note: 'Khusus Lighting', unit: 1 },
+  { id: 'g10b',  label: '10 kVA (2)',    kva: 10,   note: 'Khusus Lighting', unit: 2 },
+  { id: 'g12a',  label: '12.5 kVA (1)', kva: 12.5, note: '',                unit: 1 },
+  { id: 'g12b',  label: '12.5 kVA (2)', kva: 12.5, note: '',                unit: 2 },
+  { id: 'g60a',  label: '60 kVA (1)',   kva: 60,   note: '',                unit: 1 },
+  { id: 'g60b',  label: '60 kVA (2)',   kva: 60,   note: '',                unit: 2 },
+  { id: 'g60c',  label: '60 kVA (3)',   kva: 60,   note: '',                unit: 3 },
+  { id: 'g80',   label: '80 kVA',       kva: 80,   note: '',                unit: 1 },
+  { id: 'g100',  label: '100 kVA',      kva: 100,  note: '',                unit: 1 },
+];
+
+// ──────────────────────────────────────────
+// DATA DUMMY DAYA (fallback jika belum ada Sheets)
+// ──────────────────────────────────────────
+const DD = {
+  2024:[12,18,22,15,19,25,28,21,17,14,20,23],
+  2023:[10,14,16,12,17,20,22,18,15,11,16,19],
+  2022:[8,11,13,9,14,17,19,15,12,9,13,16]
+};
+const MN = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
+const CL = ['rgba(45,122,79,.85)','rgba(58,158,101,.85)','rgba(86,196,126,.85)','rgba(45,122,79,.75)','rgba(58,158,101,.75)','rgba(86,196,126,.75)','rgba(45,122,79,.9)','rgba(58,158,101,.9)','rgba(86,196,126,.9)','rgba(45,122,79,.8)','rgba(58,158,101,.8)','rgba(86,196,126,.8)'];
+
+// ══════════════════════════════════════════
+// SECURITY
+// ══════════════════════════════════════════
+const _0x4a2b = ['Zm9ybV9zZWNyZXRfa2V5XzIwMjY=','YXBpX3Rva2VuX3NlY3VyZV9rZXk='];
+const ekhonci  = atob(_0x4a2b[0]);
+const firetokek = atob(_0x4a2b[1]);
+
+function generateFingerprint() {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.textBaseline = 'top';
+  ctx.font = '14px Arial';
+  ctx.fillText('fingerprint', 2, 2);
+  const dataURL = canvas.toDataURL();
+  let hash = 0;
+  for (let i = 0; i < dataURL.length; i++) {
+    const char = dataURL.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return hash.toString(16) + '-' + navigator.userAgent.length + '-' + screen.width + 'x' + screen.height;
+}
+
+function generateSignature(data) {
+  const timestamp = Date.now();
+  const fingerprint = generateFingerprint();
+  const payload = JSON.stringify(data) + timestamp + fingerprint;
+  let hash = 0;
+  for (let i = 0; i < payload.length; i++) {
+    hash = ((hash << 5) - hash) + payload.charCodeAt(i);
+    hash |= 0;
+  }
+  return { signature: btoa(hash.toString(16)), timestamp, fingerprint };
+}
+
+function checkClientRateLimit() {
+  const key = 'form_rate_limit';
+  const now = Date.now();
+  const hourAgo = now - (60 * 60 * 1000);
+  let requests = JSON.parse(localStorage.getItem(key) || '[]');
+  requests = requests.filter(t => t > hourAgo);
+  if (requests.length >= 10) return false;
+  requests.push(now);
+  localStorage.setItem(key, JSON.stringify(requests));
+  return true;
+}
+
+let userInteractions = 0;
+let formStartTime = Date.now();
+document.addEventListener('click', () => userInteractions++);
+document.addEventListener('keypress', () => userInteractions++);
+
+// ══════════════════════════════════════════
+// FORM — GENERATE PERTANYAAN
+// ══════════════════════════════════════════
+document.getElementById('formTitle').textContent = FORM_CONFIG.title;
+document.getElementById('formDescription').textContent = FORM_CONFIG.description;
+
+function generateFormQuestions() {
+  const container = document.getElementById('formQuestions');
+  FORM_QUESTIONS.forEach(question => {
+    const card = document.createElement('div');
+    card.className = 'fq-card';
+    const label = document.createElement('label');
+    label.className = 'fq-label';
+    label.htmlFor = question.id;
+    label.innerHTML = question.label + (question.required ? '<span class="req-mark">*</span>' : '');
+    let input;
+    if (question.type === 'textarea') {
+      input = document.createElement('textarea');
+      input.className = 'finput';
+      input.id = question.id;
+      input.name = question.id;
+      input.placeholder = question.placeholder || '';
+      input.required = question.required;
+    } else if (question.type === 'select') {
+      input = document.createElement('select');
+      input.className = 'finput';
+      input.id = question.id;
+      input.name = question.id;
+      input.required = question.required;
+      question.options.forEach(opt => {
+        const o = document.createElement('option');
+        o.value = opt.value;
+        o.textContent = opt.label;
+        input.appendChild(o);
+      });
+    } else {
+      input = document.createElement('input');
+      input.type = question.type;
+      input.className = 'finput';
+      input.id = question.id;
+      input.name = question.id;
+      input.placeholder = question.placeholder || '';
+      input.required = question.required;
+    }
+    input.addEventListener('focus', () => card.classList.add('focused'));
+    input.addEventListener('blur',  () => card.classList.remove('focused'));
+    card.appendChild(label);
+    card.appendChild(input);
+    container.appendChild(card);
+  });
+}
+
+// ── DATE VALIDATION ──
+const today = new Date().toISOString().split('T')[0];
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('startDate').min = today;
+  document.getElementById('endDate').min   = today;
+});
+
+document.getElementById('startDate').addEventListener('change', validateDateRange);
+document.getElementById('endDate').addEventListener('change',   validateDateRange);
+
+function validateDateRange() {
+  const startDate = document.getElementById('startDate').value;
+  const endDate   = document.getElementById('endDate').value;
+  const dateAlert = document.getElementById('dateAlert');
+  const submitBtn = document.getElementById('submitBtn');
+  if (!startDate || !endDate) { dateAlert.style.display = 'none'; return; }
+  const start = new Date(startDate);
+  const end   = new Date(endDate);
+  const diffDays = Math.ceil(Math.abs(end - start) / (1000*60*60*24)) + 1;
+  if (end < start) {
+    showAlert(dateAlert, 'falert-err', 'Tanggal selesai tidak boleh lebih awal dari tanggal mulai!');
+    submitBtn.disabled = true; return;
+  }
+  if (diffDays > FORM_CONFIG.maxDateRange) {
+    showAlert(dateAlert, 'falert-err', `Rentang tanggal maksimal ${FORM_CONFIG.maxDateRange} hari!`);
+    submitBtn.disabled = true; return;
+  }
+  if (diffDays < FORM_CONFIG.minDateRange) {
+    showAlert(dateAlert, 'falert-err', `Rentang tanggal minimal ${FORM_CONFIG.minDateRange} hari!`);
+    submitBtn.disabled = true; return;
+  }
+  dateAlert.style.display = 'none';
+  checkAvailability(startDate, endDate);
+}
+
+function showAlert(el, cls, msg) {
+  el.className = 'falert ' + cls;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+async function checkAvailability(startDate, endDate) {
+  const availAlert = document.getElementById('availabilityAlert');
+  const submitBtn  = document.getElementById('submitBtn');
+  try {
+    const sd = generateSignature({ action:'check', startDate, endDate });
+    const url = `${elgoskrip}?action=checkAvailability&startDate=${startDate}&endDate=${endDate}&sig=${sd.signature}&ts=${sd.timestamp}&fp=${sd.fingerprint}&token=${btoa(firetokek)}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.available) {
+      showAlert(availAlert, 'falert-ok', '✓ Tanggal tersedia!');
+      submitBtn.disabled = false;
+    } else {
+      showAlert(availAlert, 'falert-warn', 'Kegiatan pada rentang tanggal ini sudah penuh! Hubungi Kepala Seksi jika mendesak.');
+      submitBtn.disabled = true;
+    }
+  } catch {
+    showAlert(availAlert, 'falert-info', 'Sedang memeriksa ketersediaan...');
+    submitBtn.disabled = false;
+  }
+}
+
+// ── FORM SUBMIT ──
+document.getElementById('activityForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (document.querySelector('[name="website"]').value !== '') return;
+  const timeSpent = (Date.now() - formStartTime) / 1000;
+  if (timeSpent < 5 || userInteractions < 3) { alert('Mohon isi form dengan benar'); return; }
+  if (!checkClientRateLimit()) { alert('Terlalu banyak pengiriman. Silakan tunggu beberapa saat.'); return; }
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  delete data.website;
+  data.startDate = document.getElementById('startDate').value;
+  data.endDate   = document.getElementById('endDate').value;
+  data.timestamp = new Date().toISOString();
+  const sd = generateSignature(data);
+  data.signature = sd.signature;
+  data.requestTimestamp = sd.timestamp;
+  data.fingerprint = sd.fingerprint;
+  data.token = btoa(firetokek);
+  data.interactions = userInteractions;
+  data.timeSpent = Math.floor(timeSpent);
+
+  document.getElementById('loadingIndicator').style.display = 'block';
+  document.getElementById('submitBtn').disabled = true;
+
+  try {
+    const response = await fetch(elgoskrip, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await response.json();
+    if (result.success) {
+      const msg = document.getElementById('successMessage');
+      msg.style.display = 'block';
+      setTimeout(() => { clearForm(); msg.style.display = 'none'; }, 3000);
+    } else {
+      alert('Gagal mengirim data: ' + (result.message || 'Unknown error'));
+    }
+  } catch {
+    alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
+  } finally {
+    document.getElementById('loadingIndicator').style.display = 'none';
+    document.getElementById('submitBtn').disabled = false;
+  }
+});
+
+function clearForm() {
+  document.getElementById('activityForm').reset();
+  document.getElementById('dateAlert').style.display       = 'none';
+  document.getElementById('availabilityAlert').style.display = 'none';
+  document.getElementById('submitBtn').disabled = false;
+  userInteractions = 0;
+  formStartTime = Date.now();
+}
+
+// ══════════════════════════════════════════
+// DATA DAYA — CHART
+// ══════════════════════════════════════════
+let dC = null;
+
+function bar(id, labels, data, label) {
+  const ctx = document.getElementById(id).getContext('2d');
+  return new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ label, data, backgroundColor: CL, borderColor: 'rgba(26,71,49,.6)', borderWidth: 1.5, borderRadius: 6, borderSkipped: false }] },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { font: { family: 'Plus Jakarta Sans', size: 12 }, color: '#2e5040' } },
+        tooltip: { backgroundColor: 'rgba(26,71,49,.92)', titleFont: { family: 'Plus Jakarta Sans' }, bodyFont: { family: 'Plus Jakarta Sans' }, cornerRadius: 8, padding: 10 }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(212,240,223,.7)' }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11 }, color: '#5a7a68' } },
+        x: { grid: { display: false }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11 }, color: '#5a7a68' } }
+      }
+    }
+  });
+}
+
+async function fetchS(sid, sheet, dummy) {
+  if (sid.startsWith('YOUR_')) return dummy;
+  try {
+    const r = await fetch(`https://docs.google.com/spreadsheets/d/${sid}/gviz/tq?tqx=out:json&sheet=${sheet}`);
+    const t = await r.text();
+    const j = JSON.parse(t.replace(/^.*?({.*}).*?$/s, '$1'));
+    return j.table.rows.map(r => r.c[1]?.v || 0);
+  } catch { return dummy; }
+}
+
+async function updD() {
+  const yr = document.getElementById('thnD').value;
+  const d  = await fetchS(CFG.SHEET_ID_DAYA, yr, DD[yr] || DD[2024]);
+  const tot = d.reduce((a, b) => a + b, 0);
+  document.getElementById('dST').textContent = `Selama tahun ${yr} telah dilaksanakan kegiatan dengan total`;
+  document.getElementById('dSV').textContent = tot.toLocaleString('id-ID');
+  const mx = MN[d.indexOf(Math.max(...d))];
+  const mn = MN[d.indexOf(Math.min(...d))];
+  document.getElementById('dSG').innerHTML = `
+    <div class="sm"><div class="lb">Total Kegiatan</div><div class="vl">${tot.toLocaleString('id-ID')}</div><div class="un">kegiatan</div></div>
+    <div class="sm"><div class="lb">Rata-rata/Bulan</div><div class="vl">${(tot/12).toFixed(1)}</div><div class="un">kegiatan</div></div>
+    <div class="sm"><div class="lb">Bulan Tertinggi</div><div class="vl">${mx}</div><div class="un">${Math.max(...d)} kegiatan</div></div>
+    <div class="sm"><div class="lb">Bulan Terendah</div><div class="vl">${mn}</div><div class="un">${Math.min(...d)} kegiatan</div></div>`;
+  if (dC) dC.destroy();
+  dC = bar('dChart', MN, d, `Kegiatan ${yr}`);
+}
+
+// ══════════════════════════════════════════
+// KALKULATOR GENSET
+// ══════════════════════════════════════════
+const PF = { R: 1.0, L: 0.8, C: 0.9 };
+const SAFETY = 1.25;
+let rowId = 0;
+
+function addRow(type) {
+  const tbody = document.getElementById('body-' + type);
+  const empty = tbody.querySelector('.empty-row');
+  if (empty) empty.remove();
+  const id = 'row-' + (rowId++);
+  const tr = document.createElement('tr');
+  tr.id = id;
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Nama peralatan..." oninput="calc()"></td>
+    <td><input type="number" min="0" step="1" placeholder="0" oninput="calc()" style="width:90px"></td>
+    <td><input type="number" min="1" step="1" value="1" oninput="calc()" style="width:60px"></td>
+    <td><div class="watt-display" id="w-${id}">0 W</div></td>
+    <td><button class="btn-del-row" onclick="delRow('${id}','${type}')">×</button></td>`;
+  tbody.appendChild(tr);
+  tr.querySelector('input').focus();
+  calc();
+}
+
+function delRow(id, type) {
+  const row = document.getElementById(id);
+  if (row) row.remove();
+  const tbody = document.getElementById('body-' + type);
+  if (!tbody.querySelector('tr:not(.empty-row)'))
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Belum ada peralatan. Klik "+ Tambah"</td></tr>';
+  calc();
+}
+
+function calc() {
+  let totals = { R: 0, L: 0, C: 0 };
+  ['R','L','C'].forEach(type => {
+    const rows = document.querySelectorAll(`#body-${type} tr:not(.empty-row)`);
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll('input[type="number"]');
+      const watt   = parseFloat(inputs[0].value) || 0;
+      const qty    = parseFloat(inputs[1].value) || 1;
+      const total  = watt * qty;
+      const wDiv   = row.querySelector('.watt-display');
+      if (wDiv) wDiv.textContent = total.toLocaleString('id') + ' W';
+      totals[type] += total;
+    });
+  });
+  const vaR = totals.R / PF.R;
+  const vaL = totals.L / PF.L;
+  const vaC = totals.C / PF.C;
+  const totalKVA = ((vaR + vaL + vaC) / 1000) * SAFETY;
+
+  document.getElementById('sum-r').innerHTML   = totals.R.toLocaleString('id') + '<span class="sum-unit"> W</span>';
+  document.getElementById('sum-l').innerHTML   = totals.L.toLocaleString('id') + '<span class="sum-unit"> W</span>';
+  document.getElementById('sum-c').innerHTML   = totals.C.toLocaleString('id') + '<span class="sum-unit"> W</span>';
+  document.getElementById('sum-kva').innerHTML = totalKVA.toFixed(2)           + '<span class="sum-unit"> kVA</span>';
+  document.getElementById('rec-kva').textContent = totalKVA.toFixed(2) + ' kVA';
+  updateRecommendation(totalKVA);
+}
+
+function updateRecommendation(neededKVA) {
+  const list = document.getElementById('genset-list');
+  list.innerHTML = '';
+  const groups = {};
+  GENSETS.forEach(g => {
+    if (!groups[g.kva]) groups[g.kva] = { kva: g.kva, count: 0, note: g.note };
+    groups[g.kva].count++;
+  });
+  Object.values(groups).sort((a,b) => a.kva - b.kva).forEach(g => {
+    const item = document.createElement('div');
+    item.className = 'genset-item';
+    const usageRatio = neededKVA / g.kva;
+    let badge = '', statusClass = '';
+    if (g.kva === 10) {
+      badge = `<span class="genset-badge badge-light">Lighting</span>`;
+    } else if (neededKVA === 0) {
+      badge = `<span class="genset-badge badge-ok">Tersedia</span>`;
+    } else if (g.kva < neededKVA) {
+      statusClass = 'overload';
+      badge = `<span class="genset-badge badge-over">Kurang</span>`;
+    } else if (usageRatio > 0.3 && usageRatio <= 0.8) {
+      statusClass = 'recommended';
+      badge = `<span class="genset-badge badge-rec">✦ Optimal</span>`;
+    } else if (usageRatio <= 0.3 && neededKVA > 0) {
+      badge = `<span class="genset-badge badge-light">Boros</span>`;
+    } else {
+      badge = `<span class="genset-badge badge-ok">Memadai</span>`;
+    }
+    if (statusClass) item.classList.add(statusClass);
+    item.innerHTML = `
+      <div>
+        <div class="genset-name">${g.kva} kVA</div>
+        <div class="genset-count">${g.count} unit${g.note ? ' · ' + g.note : ''}</div>
+      </div>${badge}`;
+    list.appendChild(item);
+  });
+}
+
+// ══════════════════════════════════════════
+// STRUKTUR ORGANISASI — LIGHTBOX
+// ══════════════════════════════════════════
+function openLightbox(src) {
+  document.getElementById('so-lightbox-img').src = src;
+  document.getElementById('so-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('so-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ══════════════════════════════════════════
+// FAQ — BUILD
+// ══════════════════════════════════════════
+function buildFAQ() {
+  document.getElementById('faqList').innerHTML = FAQ.map((it, i) => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(${i})">
+        ${it.q}
+        <svg id="faq-icon-${i}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gm)" stroke-width="2.5" style="flex-shrink:0;transition:transform .2s">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="faq-a" id="faq-a-${i}">${it.a}</div>
+    </div>`).join('');
+}
+
+function toggleFAQ(i) {
+  const ans  = document.getElementById('faq-a-' + i);
+  const icon = document.getElementById('faq-icon-' + i);
+  const open = ans.style.display === 'block';
+  ans.style.display = open ? 'none' : 'block';
+  icon.style.transform = open ? '' : 'rotate(180deg)';
+}
+
+// ══════════════════════════════════════════
+// NAVBAR DROPDOWN & TOGGLE
+// ══════════════════════════════════════════
+function tdd(id) {
+  const el = document.getElementById(id);
+  document.querySelectorAll('.nv.open').forEach(x => { if (x.id !== id) x.classList.remove('open'); });
+  el.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nv')) document.querySelectorAll('.nv.open').forEach(x => x.classList.remove('open'));
+});
+document.getElementById('ntog').addEventListener('click', () => document.getElementById('mnav').classList.toggle('open'));
+
+// ══════════════════════════════════════════
+// SCROLL ANIMATION
+// ══════════════════════════════════════════
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: .1 });
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  generateFormQuestions();
+  buildFAQ();
+  updD();
+  calc();
+});
+</script>
+</body>
+</html>
